@@ -1,30 +1,96 @@
-# Brushcii Ascii Art Painter
+# Brushcii — ASCII Art Painter
 
-*Automatically synced with your [v0.app](https://v0.app) deployments*
+A browser-based ASCII art painting studio. Draw pixel-style artwork using a huge
+palette of ASCII characters, brushes, and shape tools — then copy or download
+your art as plain text.
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/gileb64375-5584s-projects/v0-brushcii-ascii-art-painter)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.app-black?style=for-the-badge)](https://v0.app/chat/projects/1oPW09O0Dnk)
+## What it does
 
-## Overview
+Brushcii gives you a grid canvas where every cell holds one ASCII character.
+Pick characters from a searchable palette (blocks, arrows, shapes, symbols,
+borders, and more), paint with multiple brush sizes, draw rectangles and
+circles, move selections, undo/redo — and export the finished piece as text.
 
-This repository will stay in sync with your deployed chats on [v0.app](https://v0.app).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.app](https://v0.app).
+## Features
+
+- **Grid canvas** — resizable pixel-style canvas (default 16×16), cell-by-cell painting
+- **ASCII character palette** — hundreds of characters organized by category
+  (shapes, arrows, borders, symbols) with tags
+- **Fuzzy search** — find the right character by name or tag (`lib/fuzzy-search.ts`)
+- **Brush & eraser** — multiple brush sizes (1–4) plus an eraser tool
+- **Shape tools** — rectangle, circle, and move tools
+- **Undo / redo** — full history of canvas states
+- **Zoom & pan helpers** — zoom in/out and preview options
+- **Dark / light themes** — theme provider with system support
+- **Copy & download** — export artwork to clipboard or save as a text file
+- **Responsive UI** — shadcn/ui components (dialogs, popovers, tooltips, toasts)
+
+## Tech stack
+
+- **Next.js 14** (App Router, client-side rendering)
+- **React 18** + TypeScript
+- **Tailwind CSS 4** + shadcn/ui (Radix primitives)
+- **Lucide React** icons
+- **next-themes** for dark/light mode
+
+## Quick start
+
+Prerequisites: Node.js 18+ and npm (or pnpm).
+
+```bash
+# Install dependencies
+npm install --legacy-peer-deps
+
+# Run the dev server
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) in your browser and start painting.
+
+```bash
+# Production build
+npm run build
+npm start
+```
+
+## Project structure
+
+```
+app/
+  layout.tsx      # Root layout, theme provider, global CSS
+  page.tsx        # Main painter page — canvas state, history, dialogs
+  globals.css     # Tailwind + theme tokens
+components/
+  canvas.tsx      # The paintable grid canvas
+  toolbar.tsx     # Brush/size/tool selection
+  header.tsx      # Title bar, copy/download, settings, help
+  theme-provider.tsx
+  ui/             # shadcn/ui primitives (button, dialog, popover, ...)
+hooks/
+  use-toast.ts    # Toast notifications
+lib/
+  ascii-data.ts   # ASCII character database (char + tags + category)
+  fuzzy-search.ts # Character search logic
+  utils.ts        # class-name helpers
+public/           # Static assets (placeholder images)
+next.config.mjs   # Next.js config (images unoptimized)
+```
+
+## Environment variables
+
+None. The app is fully client-side with no backend, no API keys, and no secrets.
 
 ## Deployment
 
-Your project is live at:
+Static-friendly. The app has no API routes and no server actions, so it can be
+exported to static HTML:
 
-**[https://vercel.com/gileb64375-5584s-projects/v0-brushcii-ascii-art-painter](https://vercel.com/gileb64375-5584s-projects/v0-brushcii-ascii-art-painter)**
+1. Add `output: "export"` to `next.config.mjs`
+2. `npm run build` → the static site is emitted to `out/`
+3. Host `out/` on any static host (Cloudflare Pages, Netlify, GitHub Pages)
 
-## Build your app
+For dynamic hosting, deploy as a normal Next.js app to Vercel (`next build` + `next start`).
 
-Continue building your app on:
+## Credits
 
-**[https://v0.app/chat/projects/1oPW09O0Dnk](https://v0.app/chat/projects/1oPW09O0Dnk)**
-
-## How It Works
-
-1. Create and modify your project using [v0.app](https://v0.app)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
+Built by Girish Lade — https://ladestack.in
